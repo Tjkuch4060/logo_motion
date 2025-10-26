@@ -1,0 +1,5 @@
+{
+  "name": "LogoMotion",
+  "description": "An application to generate and edit business logos, and brainstorm ideas using Gemini. Users can generate logos from text prompts, edit existing images with instructions, and get low-latency creative suggestions from an AI assistant.",
+  "requestFramePermissions": []
+}
