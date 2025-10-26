@@ -65,7 +65,6 @@ const ImageEditor: React.FC = () => {
         } catch (e) {
             const errorMessage = e instanceof Error ? e.message : "An unknown error occurred.";
             setError(`Failed to edit image: ${errorMessage}`);
-            console.error(e);
         } finally {
             setIsLoading(false);
         }

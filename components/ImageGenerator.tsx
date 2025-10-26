@@ -33,7 +33,6 @@ const ImageGenerator: React.FC = () => {
         } catch (e) {
             const errorMessage = e instanceof Error ? e.message : "An unknown error occurred.";
             setError(`Failed to generate logo: ${errorMessage}`);
-            console.error(e);
         } finally {
             setIsLoading(false);
         }
