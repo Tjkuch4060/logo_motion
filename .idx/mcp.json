@@ -9,6 +9,26 @@
         "--only",
         "auth,firestore"
       ]
+    },
+    "FastMCP": {
+      "command": "",
+      "args": []
+    },
+    "chrome dev tools": {
+      "command": "gemini",
+      "args": [
+        "extensions",
+        "install",
+        "https://github.com/ChromeDevTools/chrome-devtools-mcp"
+      ]
+    },
+    "genkit": {
+      "command": "gemini",
+      "args": [
+        "extensions",
+        "install",
+        "https://github.com/gemini-cli-extensions/genkit"
+      ]
     }
   }
 }

@@ -1,10 +1,11 @@
 
-import { GoogleGenAI, Modality, Chat } from "@google/genai";
+import { GoogleGenerativeAI, Content } from "@google/generative-ai";
+
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+const genAI = new GoogleGenerativeAI(apiKey);
 
 const getGenAI = () => {
-    // We recreate the instance every time to ensure the most up-to-date API key is used.
-    // This is important for environments where the key might be selected or changed by the user at runtime.
-    return new GoogleGenAI({ apiKey: process.env.API_KEY });
+    return genAI;
 };
 
 export const generateLogo = async (prompt: string): Promise<string> => {
@@ -46,9 +47,6 @@ export const editImage = async (
                 },
             ],
         },
-        config: {
-            responseModalities: [Modality.IMAGE],
-        },
     });
 
     for (const part of response.candidates[0].content.parts) {
@@ -60,12 +58,49 @@ export const editImage = async (
     throw new Error("No edited image was returned.");
 };
 
-export const createIdeaChat = (): Chat => {
+export const createIdeaChat = (systemInstruction: string, history?: Content[]): any => {
     const ai = getGenAI();
     return ai.chats.create({
         model: 'gemini-2.5-flash-lite',
+        history: history,
         config: {
-            systemInstruction: 'You are a creative assistant specializing in brainstorming business names and logo ideas. Keep your responses concise, creative, and helpful. Provide suggestions in short, easy-to-read formats like lists.',
+            systemInstruction: systemInstruction,
         },
     });
 };
+
+export const analyzeImage = async (base64Image: string, mimeType: string, personaInstruction: string): Promise<string> => {
+    const ai = getGenAI();
+    const response = await ai.models.generateContent({
+        model: 'gemini-2.5-flash-image',
+        contents: {
+            parts: [
+                {
+                    inlineData: {
+                        data: base64Image,
+                        mimeType: mimeType,
+                    },
+                },
+                {
+                    text: personaInstruction,
+                },
+            ],
+        },
+    });
+    return response.candidates[0].content.parts[0].text ?? "No analysis was returned.";
+}
+
+export const generateBrandKit = async (prompt: string): Promise<string> => {
+    const ai = getGenAI();
+    const response = await ai.models.generateContent({
+        model: 'gemini-2.5-flash-lite',
+        contents: {
+            parts: [
+                {
+                    text: `Generate a brand kit for a business with the following description: ${prompt}. The brand kit should be a JSON object with the following structure: { "colorPalette": { "primary": "#...", "secondary": "#...", "accent": "#..." }, "fontPairings": { "heading": "...", "body": "..." }, "taglines": ["...", "...", "..."] }.`,
+                },
+            ],
+        },
+    });
+    return response.candidates[0].content.parts[0].text ?? "No brand kit was generated.";
+}

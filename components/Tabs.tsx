@@ -2,7 +2,7 @@ import React from 'react';
 import { Tab } from '../types';
 import { GenerateIcon } from './icons/GenerateIcon';
 import { EditIcon } from './icons/EditIcon';
-import { AssistIcon } from './icons/AssistIcon';
+import { BrandKitIcon } from './icons/BrandKitIcon';
 
 interface TabsProps {
     activeTab: Tab;
@@ -13,7 +13,7 @@ const Tabs: React.FC<TabsProps> = ({ activeTab, setActiveTab }) => {
     const tabs = [
         { id: Tab.Generate, label: 'Generate', icon: <GenerateIcon /> },
         { id: Tab.Edit, label: 'Edit', icon: <EditIcon /> },
-        { id: Tab.Assist, label: 'Brainstorm', icon: <AssistIcon /> },
+        { id: Tab.BrandKit, label: 'Brand Kit', icon: <BrandKitIcon /> },
     ];
 
     const getTabClass = (tabId: Tab) => {
