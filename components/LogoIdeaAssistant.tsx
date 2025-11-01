@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createIdeaChat } from '../services/geminiService';
-import type { Chat, GenerateContentResponse } from '@google/genai';
+import type { Chat } from '@google/genai';
 import Spinner from './Spinner';
 import ErrorAlert from './ErrorAlert';
+import Button from './Button';
 
 interface Message {
     role: 'user' | 'model';
@@ -105,9 +106,9 @@ const LogoIdeaAssistant: React.FC = () => {
                         className="flex-1 bg-transparent p-3 border-none focus:outline-none text-white"
                         disabled={isLoading || !chatSession}
                     />
-                    <button type="submit" disabled={isLoading || !currentMessage.trim()} className="p-3 text-slate-400 hover:text-white disabled:text-slate-600 disabled:cursor-not-allowed">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-                    </button>
+                    <Button type="submit" disabled={isLoading || !currentMessage.trim()}>
+                        Send
+                    </Button>
                 </div>
             </form>
         </div>

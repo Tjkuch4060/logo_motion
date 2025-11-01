@@ -1,4 +1,5 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
+import Button from './Button';
 
 interface Props {
   children: ReactNode;
@@ -36,12 +37,9 @@ class ErrorBoundary extends Component<Props, State> {
             <p className="text-slate-400 mb-4">
               We encountered an unexpected error. Please refresh the page to try again.
             </p>
-            <button
-              onClick={() => window.location.reload()}
-              className="bg-gradient-to-r from-fuchsia-500 to-cyan-500 hover:from-fuchsia-600 hover:to-cyan-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200"
-            >
+            <Button onClick={() => window.location.reload()}>
               Refresh Page
-            </button>
+            </Button>
           </div>
         </div>
       );

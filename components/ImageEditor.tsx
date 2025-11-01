@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { editImage } from '../services/geminiService';
 import Spinner from './Spinner';
 import ErrorAlert from './ErrorAlert';
+import Button from './Button';
 import { EditIcon } from './icons/EditIcon';
 
 interface ImageFile {
@@ -115,13 +116,13 @@ const ImageEditor: React.FC = () => {
                     disabled={isLoading || !originalImage}
                 />
             </div>
-            <button
+            <Button
                 onClick={handleEdit}
                 disabled={isLoading || !originalImage}
-                className="w-full bg-gradient-to-r from-fuchsia-500 to-cyan-500 hover:from-fuchsia-600 hover:to-cyan-600 disabled:from-slate-600 disabled:to-slate-700 disabled:cursor-not-allowed text-white font-bold py-3 px-4 rounded-lg transition duration-200 flex items-center justify-center shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/30"
+                className="w-full py-3 shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/30 flex items-center justify-center"
             >
                 {isLoading ? <Spinner /> : 'Apply Edit'}
-            </button>
+            </Button>
             {error && <ErrorAlert message={error} onDismiss={() => setError(null)} />}
         </div>
     );
